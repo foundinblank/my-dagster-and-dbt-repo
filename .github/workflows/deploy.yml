@@ -47,6 +47,9 @@ jobs:
         run: |
           python -m pip install pip --upgrade
           cd project-repo
+          # Generate requirements.txt temporarily from pyproject.toml for Dagster Cloud deployment
+          pip install pip-tools
+          pip-compile pyproject.toml --output-file requirements.txt
           pip install . --upgrade --upgrade-strategy eager
           dagster-dbt project prepare-and-package --file src/dagster_and_dbt/defs/project.py
         shell: bash
